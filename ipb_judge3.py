@@ -13,13 +13,13 @@ import sys
 #####################################################################################################
 class Judge:
   # constructor
-  def __init__(self, tdir):
-    self.__trgDir = tdir
+  def __init__(self):
+    #self.__trgDir = tdir
     self.__judgeInterval = 10	# ?????(?)
     self.__jdgWt = 200			# ?????????
     self.__jdgHt = 150		# ?????????
     self.__area_ratio =  5		# ??????%??????????????????
-    self.__fileload = 100        #?????????
+    self.__fileload = 10       # Max filenumber
     self.__updatelist = 0      #??????????
     self.sumPoints = 0
     self.lastcolor = " "
@@ -28,7 +28,7 @@ class Judge:
     self.gfiles = ["green"]
     self.bfiles = ["blue"]
     self.yfiles = ["yellow"]  
-    
+    self.deleteimg = 0
 
     
     self.color = sys.argv
@@ -93,7 +93,7 @@ class Judge:
 
   # private function
   def __judgeGreen(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.green -5,self.green + 5],[80, 255],[50, 230])
+    jdg, res = self.__colorDetector(hsv, [self.green -5,self.green + 5],[80, 255],[50, 250])
     
     if self.lastcolor != "G":
     
@@ -108,7 +108,7 @@ class Judge:
 
   # private function
   def __judgeBlue(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.blue -5,self.blue + 5],[80, 255],[50, 230])
+    jdg, res = self.__colorDetector(hsv, [self.blue -5,self.blue + 5],[80, 255],[50, 250])
 
     if self.lastcolor != "B":
     # ?????
@@ -122,7 +122,7 @@ class Judge:
 
   # private function
   def __judgeYellow(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.yellow -5,self.yellow + 5],[80, 255],[50, 230])
+    jdg, res = self.__colorDetector(hsv, [self.yellow -5,self.yellow + 5],[80, 255],[50, 250])
 
     if self.lastcolor != "Y":
     # ?????
@@ -140,16 +140,16 @@ class Judge:
     t = threading.Timer(self.__judgeInterval, self.__calcPoints)
     t.start()
     
-    files = glob.glob(self.__trgDir + "/*.jpg")
+    files = glob.glob( "*.jpg")
     files.sort(key=os.path.getmtime,reverse = True)
 
-        
+    
     ##print (files) 
     # ????????????????
     cmpfiles = len(files)
-    ##print(len(files))
     if cmpfiles > self.__fileload:
-       os.remove(files[self.__fileload-1])
+       os.remove(files[self.__fileload])
+       self.deleteimg += 1
     ##print(len(files))    
 
 
@@ -158,7 +158,6 @@ class Judge:
           img = cv2.imread(files[i])
           hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
           self.__updatelist += 1
-
           if self.__judgeGreen(hsv) and self.lastcolor != "G":
             self.sumPoints = self.sumPoints + 1
             self.lastcolor = "G"
@@ -175,12 +174,13 @@ class Judge:
 
 
 
-    print("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points")
+    print("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
     with open('/var/www/html/score.txt', 'w') as wfp:
-        wfp.write("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points\n")
+        wfp.write("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
         wfp.write(str(self.gfiles) + "\n")
         wfp.write(str(self.bfiles) + "\n")
         wfp.write(str(self.yfiles) + "\n")
+        #wfp.write(str(self.deleteimg + cmpfiles) + "\n")
 
     ##f = open('/var/www/html/score.txt', 'w')
     ##f.write("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points\n")
@@ -196,12 +196,11 @@ class Judge:
 #####################################################################################################
 
 def main():
-  imgdir = "imgdir"
+  #imgdir = "imgdir"
   
   #??????????
-  jdg = Judge(imgdir)
+  jdg = Judge()
 
-  print("hogehogehogegeho")
   while 1:
     key = cv2.waitKey(1)
     if key == ord('q'):
