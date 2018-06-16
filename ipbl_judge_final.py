@@ -18,8 +18,8 @@ class Judge:
     self.__judgeInterval = 10	# judge inteval(sec)
     self.__jdgWt = 200			# width of judg area
     self.__jdgHt = 150		# Vertical width of judg area
-    self.__area_ratio =  5		# Whether to make true when@ratio or more of the judg area becomes the search color
-    self.__fileload = 100       # Max filenumber
+    self.__area_ratio =  5		# Whether to make true whenÂ@ratio or more of the judg area becomes the search color
+    self.__fileload = 200       # Max filenumber
     self.__updatelist = 0      # Number of file loaded
     self.sumPoints = 0        # sumpoints
     self.lastcolor = " "      # color take before
