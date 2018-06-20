@@ -33,7 +33,7 @@ class Judge:
     
     self.color = sys.argv
     if(self.color[1] == "-h"):
-        print("argument yellow hue , green hue , blue hue")
+        print("argument yellow hue , green hue , blue hue, team name ")
         sys.exit()
         
         
@@ -172,6 +172,7 @@ class Judge:
 
     print("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
     with open('/var/www/html/score.txt', 'w') as wfp:
+        wfp.write("Team Name : " + self.color[4]+ "\n" ); 
         wfp.write("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
         wfp.write(str(self.gfiles) + "\n")
         wfp.write(str(self.bfiles) + "\n")
