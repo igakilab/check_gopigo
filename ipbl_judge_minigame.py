@@ -172,7 +172,7 @@ class Judge:
 
     print("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
     with open('/var/www/html/score.txt', 'w') as wfp:
-        wfp.write("Team Name : " + self.color[4]+ "\n" ); 
+        wfp.write("Team name : " + self.color[4]+ "\n" ); 
         wfp.write("TOTAL POINT @" + str(int(time.time() - self.__prvTime)) + "sec is " + str(self.sumPoints) + " points / " + str(self.deleteimg + cmpfiles) + "totalshot\n")
         wfp.write(str(self.gfiles) + "\n")
         wfp.write(str(self.bfiles) + "\n")
