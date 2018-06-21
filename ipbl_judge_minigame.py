@@ -24,7 +24,7 @@ class Judge:
     self.sumPoints = 0        # sumpoints
     self.lastcolor = " "      # color take before
     
-     
+
     self.gfiles = ["green"]
     self.bfiles = ["blue"]
     self.yfiles = ["yellow"]  
@@ -93,12 +93,12 @@ class Judge:
 
   # private function
   def __judgeGreen(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.green -5,self.green + 5],[80, 255],[50, 250])
+    jdg, res = self.__colorDetector(hsv, [self.green -10,self.green + 10],[80, 255],[50, 250])
     
     if self.lastcolor != "G":
     
       # For judgment confirmation
-        if res is not None:
+        #if res is not None:
           #cv2.imshow("green", res)
 
         if jdg :
@@ -108,11 +108,11 @@ class Judge:
 
   # private function
   def __judgeBlue(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.blue -5,self.blue + 5],[80, 255],[50, 250])
+    jdg, res = self.__colorDetector(hsv, [self.blue -10,self.blue + 10],[80, 255],[50, 250])
 
     if self.lastcolor != "B":
     #  For judgment confirmation
-        if res is not None:
+        #if res is not None:
           #cv2.imshow("blue", res)
 
         if jdg :
@@ -122,11 +122,11 @@ class Judge:
 
   # private function
   def __judgeYellow(self, hsv):
-    jdg, res = self.__colorDetector(hsv, [self.yellow -5,self.yellow + 5],[80, 255],[50, 250])
+    jdg, res = self.__colorDetector(hsv, [self.yellow -10,self.yellow + 10],[80, 255],[50, 250])
 
     if self.lastcolor != "Y":
     #  For judgment confirmation
-        if res is not None:
+        #if res is not None:
          #cv2.imshow("yellow", res)
 
         if jdg :
