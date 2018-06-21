@@ -99,7 +99,7 @@ class Judge:
     
       # For judgment confirmation
         if res is not None:
-          cv2.imshow("green", res)
+          #cv2.imshow("green", res)
 
         if jdg :
           print("Get Green Point!")
@@ -113,7 +113,7 @@ class Judge:
     if self.lastcolor != "B":
     #  For judgment confirmation
         if res is not None:
-          cv2.imshow("blue", res)
+          #cv2.imshow("blue", res)
 
         if jdg :
          print("Get Blue Point!")
@@ -127,7 +127,7 @@ class Judge:
     if self.lastcolor != "Y":
     #  For judgment confirmation
         if res is not None:
-         cv2.imshow("yellow", res)
+         #cv2.imshow("yellow", res)
 
         if jdg :
          print("Get Yellow Point!")
